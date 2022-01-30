@@ -1,31 +1,28 @@
 package blockchain;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        BlockChain chain;
-        int blockCounter;
-        File file = new File("BlockChain");
-        if (file.exists() && !file.isDirectory())
-            chain = new BlockChain("BlockChain");
-        else {
-            System.out.println("Enter the number of Zeroes you want at beginning of each hash: ");
-            chain = new BlockChain(scanner.nextInt());
-            System.out.println("How Many Blocks Do you want to create ? : ");
-            blockCounter = scanner.nextInt() + 1;
-            for (int i = 1; i < blockCounter; i++) {
-                System.out.println("Creating Block" + i);
-                chain.addBlock();
-                System.out.println("Block " + i + " Created");
-            }
-            SerializationUtils.WriterCloser();
+    public static void main(String[] args) throws InterruptedException, IOException, ClassNotFoundException {
+        BlockChain chain = BlockChain.getInstance();
+        final int MINER_COUNT = 8;
+        Miner[] miners = new Miner[MINER_COUNT];
+        ExecutorService executor = Executors.newFixedThreadPool(MINER_COUNT);
+        chain.loadBlockChain("BlockChain");
+        for (int i = 0; i < MINER_COUNT; i++) {
+            miners[i] = new Miner(i + 1, chain);
+            executor.submit(miners[i]);
         }
-        chain.print();
+        while (chain.getBlockCount() < 20) {
+            TimeUnit.SECONDS.sleep(1);
+            chain.saveBlockChain("BlockChain");
+        }
+        executor.shutdownNow();
+
     }
 }
 
