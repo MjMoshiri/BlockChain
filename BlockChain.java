@@ -63,8 +63,6 @@ class BlockChain implements Serializable {
         blockCount++;
     }
 
-    public void addBlock() {
-    }
 
     public synchronized boolean validateBlock(Block block, int minerId) {
         if (block.getHash().startsWith("0".repeat(zeroes)))
