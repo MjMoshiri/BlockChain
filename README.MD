@@ -16,3 +16,6 @@ applying the knowledge I earned in HyperSkill [Java Developer](https://hyperskil
 
 
 * as an Example  8 Miners are Working in a Thread Pool to find the Blocks.
+
+![image](https://user-images.githubusercontent.com/19267682/198874035-0021f521-1018-4f18-aa96-f0f517cdf06d.png)
+
