@@ -2,7 +2,7 @@
 This repository is a simple implementation of a working blockchain created by me in an attempt to 
 applying the knowledge I earned in HyperSkill [Java Developer](https://hyperskill.org/tracks/17) Course.
 
-##Key Features
+## Key Features
 * Hashing Function used for the blocks is [SHA-256](https://en.wikipedia.org/wiki/SHA-2)
 
 
